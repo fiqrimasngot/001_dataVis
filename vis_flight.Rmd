@@ -1,0 +1,14 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, installing libraries}
+library(pacman)
+p_load("nycflights13","ggplot2","moderndive")
+```
+
+```{r}
+
+```
+
