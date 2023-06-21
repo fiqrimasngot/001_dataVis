@@ -6,10 +6,37 @@ output: html_notebook
 ```{r, installing libraries}
 library(pacman)
 p_load("nycflights13","ggplot2","moderndive")
+p_load("XML","RCurl","rlist")
+p_load("rvest")
 ```
 
 ```{r}
 ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
   geom_point(alpha = 0.2)
+```
+
+```{r}
+html_code <- read_html("http://phonebook")
+
+# take table on 3
+table_html <- html_code %>% html_nodes("table") %>% .[[3]]
+  
+# Use the html_table function to convert the table 
+# HTML code into a data frame
+table_df <- table_html %>% html_table()
+
+
+# work but inverted
+# table <- page %>% html_nodes(xpath='//*[@id="table1"]') %>% html_table()
+
+```
+
+```{r}
+# Monitoring weird character due to blank space in ldap
+table_df[grepl("[0-9]", table_df$`Full name`),]
+table_df[grepl("[0-9]", table_df$`Desk Phone`),]
+table_df[grepl("[0-9]", table_df$`Title`),]
+table_df[grepl("[0-9]", table_df$`Given Name`),]
+# table_df[!grepl("[a-zA-Z]{20}", table_df$`Given Name`),] #invert
 ```
 
